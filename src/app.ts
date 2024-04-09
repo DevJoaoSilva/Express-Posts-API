@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import routes from './routes';
 
 class App {
     public express: express.Application;
@@ -17,7 +18,7 @@ class App {
     }
 
     private routes() {
-        this.express.get('/', (req, res) => res.send('Hello world'));
+        this.express.use(routes);
     }
 }
 
