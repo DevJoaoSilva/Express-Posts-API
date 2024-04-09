@@ -2,8 +2,10 @@
   "name": "js-express-posts",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
+    "start": "node ./dist/index.js",
+    "build": "tsc",
     "dev": "nodemon --watch src/ --exec ts-node src/index.ts -e ts"
   },
   "keywords": [],
