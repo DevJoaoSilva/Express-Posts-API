@@ -1,5 +1,5 @@
-import PostMongoose from "./PostMongoose";
+import PostMongoose from './PostMongoose';
 
-const Post = PostMongoose
+const Post = PostMongoose;
 
 export default Post;

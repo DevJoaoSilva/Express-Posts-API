@@ -16,6 +16,7 @@ class App {
 
     private middlewares() {
         this.express.use(express.json());
+        this.express.use(express.urlencoded({ extended: true }));
         this.express.use(cors());
     }
 
