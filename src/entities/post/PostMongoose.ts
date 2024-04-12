@@ -1,9 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-
-interface IPost {
-    title: string;
-    body: string;
-}
+import { IPost } from './Protocol';
 
 const postsSchema = new Schema<IPost>({
     title: { type: String, require: true },

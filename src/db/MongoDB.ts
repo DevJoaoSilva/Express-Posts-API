@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import { DB } from './protocol';
 
-class MongoDB {
+class MongoDB implements DB {
     public async connectDB() {
         try {
             await mongoose.connect(process.env.MONGO_URI as string);
