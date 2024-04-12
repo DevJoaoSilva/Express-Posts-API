@@ -2,12 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import routes from './routes';
+import connectDB from './db/DB';
 
 class App {
     public express: express.Application;
 
     public constructor() {
         this.express = express();
+        this.DB();
         this.middlewares();
         this.routes();
     }
@@ -19,6 +21,10 @@ class App {
 
     private routes() {
         this.express.use(routes);
+    }
+
+    private async DB() {
+        await connectDB();
     }
 }
 
