@@ -1,6 +1,6 @@
 import PostMongoose from '../../entities/post/PostMongoose';
 import { IPost } from '../../entities/post/Protocol';
-import { ICreatePostDTO } from '../../useCases/createPost/createPostDTO';
+import { ICreatePostDTO } from '../../controllers/createPost/createPostDTO';
 import { ICreatePostRepository } from './protocols';
 
 export class MongoCreatePostRepository implements ICreatePostRepository {
