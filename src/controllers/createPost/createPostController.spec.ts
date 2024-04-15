@@ -12,8 +12,8 @@ describe('Create Post', () => {
     };
 
     jest.mock('../../utils/helpers', () => ({
-        validateResults: jest.fn(() => ({
-            isEmpty: jest.fn(() => false),
+        validateResults: jest.fn().mockReturnValue(() => ({
+            isEmpty: jest.fn(() => { console.log('fake'); return false}),
             array: jest.fn(() => [{ msg: 'invalid field' }]),
         })),
     }));
