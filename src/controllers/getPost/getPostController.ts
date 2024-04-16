@@ -9,14 +9,14 @@ export class GetPostController implements IController {
     async handle(req: Request, res: Response): Promise<Response> {
         const result = validateResults(req as Request);
 
-        if (!result.isEmpty()) {
+        if (!result.isEmpty()) {            
             return res.status(400).send({ error: result.array()[0]?.msg });
         }
 
         try {
             const post = await this.repository.getPost(req.params.id);
 
-            return res.status(200).json(post);
+            return res.status(200).send(post);
         } catch (error) {
             if (error instanceof Error)
                 return res.status(400).send({ error: error.message });
