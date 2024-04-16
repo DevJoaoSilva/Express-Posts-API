@@ -7,20 +7,24 @@ import { validateResults } from '../../utils/helpers';
 import { CreatePostController } from './createPostController';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 
+const data = {
+    title: 'test title',
+    body: 'test body',
+};
+
+const mockRepository = {
+    createPost: jest.fn(async () => ({ id: '1', ...data })),
+};
+
+const { res, clearMockRes } = getMockRes();
+
+beforeEach(() => {
+    jest.clearAllMocks();
+    clearMockRes();
+});
+
 describe('Create Post', () => {
-    const data = {
-        title: 'test title',
-        body: 'test body',
-    };
-
-    const mockRepository = {
-        createPost: jest.fn(async () => ({ id: '1', ...data })),
-    };
-
-    beforeEach(() => jest.clearAllMocks());
-
     it('should call createPostRepository with data', async () => {
-        const { res } = getMockRes();
         const controller = new CreatePostController(mockRepository);
         await controller.handle(getMockReq({ body: data }), res);
 
@@ -28,7 +32,6 @@ describe('Create Post', () => {
     });
 
     it('should return the created post', async () => {
-        const { res } = getMockRes();
         const controller = new CreatePostController(mockRepository);
         await controller.handle(getMockReq({ body: data }), res);
 
@@ -36,7 +39,6 @@ describe('Create Post', () => {
     });
 
     it('should return status 400', async () => {
-        const { res } = getMockRes();
         // @ts-expect-error mock implementation for returning error
         validateResults.mockImplementation(() => ({
             isEmpty: () => false,
