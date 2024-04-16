@@ -1,3 +1,9 @@
+jest.mock('../../utils/helpers', () => ({
+    validateResults: jest.fn(() => ({
+        isEmpty: jest.fn(() => true),
+    })),
+}));
+import { validateResults } from '../../utils/helpers';
 import { CreatePostController } from './createPostController';
 import { getMockReq, getMockRes } from '@jest-mock/express';
 
@@ -11,12 +17,7 @@ describe('Create Post', () => {
         createPost: jest.fn(async () => ({ id: '1', ...data })),
     };
 
-    jest.mock('../../utils/helpers', () => ({
-        validateResults: jest.fn().mockReturnValue(() => ({
-            isEmpty: jest.fn(() => { console.log('fake'); return false}),
-            array: jest.fn(() => [{ msg: 'invalid field' }]),
-        })),
-    }));
+    // beforeEach(() => jest.clearAllMocks());
 
     it('should call createPostRepository with data', async () => {
         const { res } = getMockRes();
@@ -36,24 +37,15 @@ describe('Create Post', () => {
 
     it('should return status 400', async () => {
         const { res } = getMockRes();
+        // @ts-expect-error mock implementation for returning error
+        validateResults.mockImplementation(() => ({
+            isEmpty: () => false,
+            array: jest.fn(() => [{ msg: 'invalid field' }]),
+        }));
 
         const controller = new CreatePostController(mockRepository);
         await controller.handle(
-            getMockReq({
-                body: { title: data.title },
-                'express-validator#contexts': [
-                    {
-                        _errors: [
-                            {
-                                type: 'field',
-                                msg: 'The Post body cannot be empty',
-                                path: 'body',
-                                location: 'body',
-                            },
-                        ],
-                    },
-                ],
-            }),
+            getMockReq({ body: { title: data.title } }),
             res
         );
 
