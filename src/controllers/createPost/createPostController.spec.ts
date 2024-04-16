@@ -17,7 +17,7 @@ describe('Create Post', () => {
         createPost: jest.fn(async () => ({ id: '1', ...data })),
     };
 
-    // beforeEach(() => jest.clearAllMocks());
+    beforeEach(() => jest.clearAllMocks());
 
     it('should call createPostRepository with data', async () => {
         const { res } = getMockRes();
