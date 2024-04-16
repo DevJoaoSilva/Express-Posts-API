@@ -26,7 +26,7 @@ describe('Get Posts', () => {
         const controller = new GetPostsController(mockRepository);
         await controller.handle(getMockReq(), res);
 
-        expect(res.json).toHaveBeenCalledWith(posts);
+        expect(res.send).toHaveBeenCalledWith(posts);
     });
 
     it('should return an 500 if some error happens in the repository', async ()=>{

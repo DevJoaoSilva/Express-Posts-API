@@ -9,7 +9,7 @@ export class GetPostsController implements IController {
         try {
             const post = await this.repository.getPosts();
 
-            return res.status(200).json(post);
+            return res.status(200).send(post);
         } catch (err) {
             return res.status(500).send('Something went wrong');
         }

@@ -16,7 +16,7 @@ export class CreatePostController implements IController {
         try {
             const { title, body } = req.body;
             const post = await this.repository.createPost({ title, body });
-            return res.status(201).json(post);
+            return res.status(201).send(post);
         } catch (error) {
             return res.status(500).send('Something went wrong');
         }

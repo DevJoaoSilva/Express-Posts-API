@@ -35,7 +35,7 @@ describe('Create Post', () => {
         const controller = new CreatePostController(mockRepository);
         await controller.handle(getMockReq({ body: data }), res);
 
-        expect(res.json).toHaveBeenCalledWith({ id: '1', ...data });
+        expect(res.send).toHaveBeenCalledWith({ id: '1', ...data });
     });
 
     it('should return status 400', async () => {
