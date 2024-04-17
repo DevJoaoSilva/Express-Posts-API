@@ -8,9 +8,14 @@ import { updatePost } from './controllers/updatePost';
 import updatePostValidationSchema from './controllers/updatePost/updatePostValidationSchema';
 import { deletePost } from './controllers/deletePost';
 
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocs from './swagger.json';
+
 const routes = Router();
 
 routes.get('/', (req, res) => res.send('hi'));
+// Documentation
+routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 // Post
 routes.get('/posts', getPosts);
 routes.get(
