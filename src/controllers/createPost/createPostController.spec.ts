@@ -24,15 +24,15 @@ beforeEach(() => {
 });
 
 describe('Create Post', () => {
+    const controller = new CreatePostController(mockRepository);
+
     it('should call createPostRepository with data', async () => {
-        const controller = new CreatePostController(mockRepository);
         await controller.handle(getMockReq({ body: data }), res);
 
         expect(mockRepository.createPost).toHaveBeenCalledWith(data);
     });
 
     it('should return the created post', async () => {
-        const controller = new CreatePostController(mockRepository);
         await controller.handle(getMockReq({ body: data }), res);
 
         expect(res.send).toHaveBeenCalledWith({ id: '1', ...data });
@@ -45,7 +45,6 @@ describe('Create Post', () => {
             array: jest.fn(() => [{ msg: 'invalid field' }]),
         }));
 
-        const controller = new CreatePostController(mockRepository);
         await controller.handle(
             getMockReq({ body: { title: data.title } }),
             res
