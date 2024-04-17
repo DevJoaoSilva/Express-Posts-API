@@ -10,7 +10,7 @@ export class UpdatePostController implements IController {
         const result = validateResults(req);
 
         if (!result.isEmpty())
-            res.status(400).send({ msg: result.array()[0].msg });
+            return res.status(400).send({ msg: result.array()[0].msg });
 
         const validKeys = ['title', 'body'];
 
@@ -19,7 +19,7 @@ export class UpdatePostController implements IController {
         );
 
         if (!isBodyValid)
-            res.status(400).send({ msg: 'Some fields are missing or not allowed' });
+            return res.status(400).send({ msg: 'Some fields are missing or not allowed' });
 
         try {
             const post = await this.repository.updatePost(
@@ -29,10 +29,12 @@ export class UpdatePostController implements IController {
 
             return res.status(200).send(post);
         } catch (error) {
-            if (error instanceof Error)
-                return res.status(400).send({ error: error.message });
-
-            return res.status(500).send({ error: 'Something went wrong' });
+            if (error instanceof Error) {
+                return error.message === 'Post not found'
+                    ? res.status(404).send({ msg: error.message })
+                    : res.status(400).send({ msg: error.message });
+            }
+            return res.status(500).send({ msg: 'Something went wrong' });
         }
     }
 }
