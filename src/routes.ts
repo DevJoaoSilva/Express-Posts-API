@@ -6,6 +6,7 @@ import { getPosts } from './controllers/getPosts';
 import { getPost } from './controllers/getPost';
 import { updatePost } from './controllers/updatePost';
 import updatePostValidationSchema from './controllers/updatePost/updatePostValidationSchema';
+import { deletePost } from './controllers/deletePost';
 
 const routes = Router();
 
@@ -23,6 +24,11 @@ routes.patch(
     param('id').trim().notEmpty().withMessage('Id cant be empty').escape(),
     checkSchema(updatePostValidationSchema),
     updatePost
+);
+routes.delete(
+    '/posts/:id',
+    param('id').trim().notEmpty().withMessage('Id cant be empty').escape(),
+    deletePost
 );
 
 export default routes;
