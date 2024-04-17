@@ -11,6 +11,8 @@ export class DeletePostController implements IController {
 
         if (!result.isEmpty())
             return res.status(400).send({ msg: result.array()[0].msg });
+        console.log(req.params.id);
+        
 
         try {
             await this.repository.deletePost(req.params.id);
