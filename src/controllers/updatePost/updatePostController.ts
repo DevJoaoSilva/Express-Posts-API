@@ -19,7 +19,7 @@ export class UpdatePostController implements IController {
         );
 
         if (!isBodyValid)
-            res.status(400).send({ msg: 'Some fields are not allowed' });
+            res.status(400).send({ msg: 'Some fields are missing or not allowed' });
 
         try {
             const post = await this.repository.updatePost(
