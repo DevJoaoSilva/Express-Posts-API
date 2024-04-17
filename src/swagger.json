@@ -1,3 +1,241 @@
 {
-    
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Posts Api",
+        "description": "This is a simple CRUD example of express Posts api (OOP), with tests, validation, documentation and CICD",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3333/",
+            "description": "test API"
+        }
+    ],
+    "paths": {
+        "/posts": {
+            "post": {
+                "summary": "Create a Post",
+                "description": "This route is responsible for create a new Post",
+                "tags": ["Posts"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Post"
+                            },
+                            "example": {
+                                "title": "Title of post",
+                                "body": "body of post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Post"
+                                },
+                                "example": {
+                                    "id": "1",
+                                    "title": "Title of post 1",
+                                    "body": "body of post 1"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get all Posts",
+                "description": "This route is responsible for getting all posts",
+                "tags": ["Posts"],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "$ref": "#/components/schemas/Post"
+                                },
+                                "example": [
+                                    {
+                                        "id": "1",
+                                        "title": "Title of post 1",
+                                        "body": "body of post 1"
+                                    },
+                                    {
+                                        "id": "2",
+                                        "title": "Title of post 2",
+                                        "body": "body of post 2"
+                                    },
+                                    {
+                                        "id": "3",
+                                        "title": "Title of post 3",
+                                        "body": "body of post 3"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/posts/{id}": {
+            "get": {
+                "summary": "Get Post",
+                "description": "This route is responsible for getting a single post by id",
+                "tags": ["Posts"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Posts ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Post"
+                                },
+                                "example": {
+                                    "id": "1",
+                                    "title": "Title of post 1",
+                                    "body": "body of post 1"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update Post",
+                "description": "This route is responsible for updating a single post",
+                "tags": ["Posts"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Posts ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Post"
+                            },
+                            "example": {
+                                "title": "Title updated of post",
+                                "body": "body updated of post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Post"
+                                },
+                                "example": {
+                                    "id": "1",
+                                    "title": "Title of post 1",
+                                    "body": "body of post 1"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Post",
+                "description": "This route is responsible for deleting a single post",
+                "tags": ["Posts"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Posts ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Post": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
 }
