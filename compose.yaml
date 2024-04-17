@@ -1,0 +1,33 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      PORT: 3333
+      MONGO_URI: mongodb://127.0.0.1:27017/express_posts
+    ports:
+      - 3333:3333
+    depends_on:
+      - db
+
+  # db:
+  #   image: mongo:latest
+  #   restart: always
+  #   volumes:
+  #     - posts:/data/db
+  #   expose:
+  #     - 27017:27017
+  db:
+    container_name: express_posts_mysql
+    image: mysql:8.0
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+
+volumes:
+  posts:
