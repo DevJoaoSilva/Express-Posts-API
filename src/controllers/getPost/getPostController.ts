@@ -9,7 +9,7 @@ export class GetPostController implements IController {
     async handle(req: Request, res: Response): Promise<Response> {
         const result = validateResults(req as Request);
 
-        if (!result.isEmpty()) {            
+        if (!result.isEmpty()) {
             return res.status(400).send({ error: result.array()[0]?.msg });
         }
 
@@ -18,9 +18,11 @@ export class GetPostController implements IController {
 
             return res.status(200).send(post);
         } catch (error) {
-            if (error instanceof Error)
-                return res.status(400).send({ error: error.message });
-
+            if (error instanceof Error) {
+                return error.message === 'Post not found'
+                    ? res.status(404).send({ msg: error.message })
+                    : res.status(400).send({ msg: error.message });
+            }
             return res.status(500).send({ error: 'Something went wrong' });
         }
     }
