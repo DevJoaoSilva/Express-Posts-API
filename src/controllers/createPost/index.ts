@@ -1,5 +1,3 @@
-// instanciate controller/repo/usecase
-
 import { Request, Response } from "express";
 // import { MongoCreatePostRepository } from "../../repositories/createPost/mongoCreatePostRepository";
 import { CreatePostController } from "./createPostController";
