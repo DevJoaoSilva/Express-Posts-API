@@ -8,14 +8,14 @@ import { updatePost } from './controllers/updatePost';
 import updatePostValidationSchema from './controllers/updatePost/updatePostValidationSchema';
 import { deletePost } from './controllers/deletePost';
 
-import swaggerUi from 'swagger-ui-express'
+import swaggerUi from 'swagger-ui-express';
 import swaggerDocs from './swagger.json';
 
 const routes = Router();
 
 routes.get('/', (req, res) => res.send('hi'));
 // Documentation
-routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Post
 routes.get('/posts', getPosts);
 routes.get(
@@ -26,8 +26,7 @@ routes.get(
 routes.post('/posts', checkSchema(createPostValidationSchema), createPost);
 routes.patch(
     '/posts/:id',
-    param('id').trim().notEmpty().withMessage('Id cant be empty').escape(),
-    checkSchema(updatePostValidationSchema),
+    updatePostValidationSchema,
     updatePost
 );
 routes.delete(
