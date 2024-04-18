@@ -15,7 +15,7 @@ services:
   #   image: mongo:latest
   #   restart: always
   #   volumes:
-  #     - posts:/data/db
+  #     - ./storage/mongodb:/data/db
   #   expose:
   #     - 27017:27017
   db:
