@@ -1,11 +1,16 @@
 services:
   server:
+    container_name: express-posts-server
     build:
       context: .
     environment:
       NODE_ENV: production
       PORT: 3333
       MONGO_URI: mongodb://127.0.0.1:27017/express_posts
+      MYSQL_DB: express_posts
+      MYSQL_USER: root
+      MYSQL_PASS: root
+      MYSQL_HOST: db
     ports:
       - 3333:3333
     depends_on:
@@ -19,7 +24,7 @@ services:
   #   expose:
   #     - 27017:27017
   db:
-    container_name: express_posts_mysql
+    container_name: express-posts-mysql
     image: mysql:8.0
     volumes:
       - ./storage/mysql:/var/lib/mysql
